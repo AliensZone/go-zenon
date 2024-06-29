@@ -99,12 +99,12 @@ jobs:
           base64 --decode /tmp/mac_code_sign_cert_base64.txt > /tmp/mac_code_sign_cert.p12
           echo "$MAC_CODE_CONNECT_API_KEY_JSON" > /tmp/mac_code_connect_api_key.json
           echo "Signing step"
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --code-signature-flags runtime --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS ./znnd-darwin-universal
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --code-signature-flags runtime --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS ./znnd-darwin-amd64
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --code-signature-flags runtime --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS ./znnd-darwin-arm64
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --code-signature-flags runtime --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS ./libznn-darwin-universal.dylib
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --code-signature-flags runtime --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS ./libznn-darwin-amd64.dylib
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --code-signature-flags runtime --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS ./libznn-darwin-arm64.dylib
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS --code-signature-flags runtime  ./znnd-darwin-universal
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS --code-signature-flags runtime ./znnd-darwin-amd64
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS --code-signature-flags runtime ./znnd-darwin-arm64
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS --code-signature-flags runtime ./libznn-darwin-universal.dylib
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS --code-signature-flags runtime ./libznn-darwin-amd64.dylib
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign sign --verbose --for-notarization --p12-file /tmp/mac_code_sign_cert.p12 --p12-password $MAC_CODE_SIGN_CERT_PASS --code-signature-flags runtime ./libznn-darwin-arm64.dylib
           echo "Notarization submission step"
           zip znnd-darwin-universal.zip ./znnd-darwin-universal && rm ./znnd-darwin-universal
           zip znnd-darwin-amd64.zip ./znnd-darwin-amd64 && rm ./znnd-darwin-amd64
@@ -112,12 +112,12 @@ jobs:
           zip libznn-darwin-universal.zip ./libznn-darwin-universal.dylib && rm ./libznn-darwin-universal.dylib
           zip libznn-darwin-amd64.zip ./libznn-darwin-amd64.dylib && rm ./libznn-darwin-amd64.dylib
           zip libznn-darwin-arm64.zip ./libznn-darwin-arm64.dylib && rm ./libznn-darwin-arm64.dylib
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json ./znnd-darwin-universal.zip
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json ./znnd-darwin-amd64.zip
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json ./znnd-darwin-arm64.zip
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json ./libznn-darwin-universal.zip
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json ./libznn-darwin-amd64.zip
-          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json ./libznn-darwin-arm64.zip
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json --staple ./znnd-darwin-universal.zip
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json --staple ./znnd-darwin-amd64.zip
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json --staple ./znnd-darwin-arm64.zip
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json --staple ./libznn-darwin-universal.zip
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json --staple ./libznn-darwin-amd64.zip
+          ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-submit --verbose --api-key-file /tmp/mac_code_connect_api_key.json --staple ./libznn-darwin-arm64.zip
           echo "Notarization listing step"
           ../../apple-codesign-0.27.0-x86_64-unknown-linux-musl/rcodesign notary-list --verbose --api-key-file /tmp/mac_code_connect_api_key.json
           echo "Cleanup step"
